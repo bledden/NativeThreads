@@ -11,10 +11,14 @@ env/
 ENV/
 .venv/
 
-# PyInstaller
+# PyInstaller (Windows)
 build/
 dist/
 *.spec
+
+# py2app (macOS)
+.eggs/
+*.egg-info/
 
 # IDE
 .vscode/
