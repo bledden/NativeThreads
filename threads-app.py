@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 import webview
+import platform
 
 # Configuration file path
 CONFIG_DIR = Path.home() / ".threads-app"
@@ -71,8 +72,16 @@ class ThreadsApp:
         # Set up event handlers
         self.window.events.closing += self.on_closing
         
-        # Start the application
-        webview.start()
+        # Configure storage persistence based on platform
+        if platform.system() == 'Darwin':  # macOS
+            # Use private mode = False to enable persistent storage
+            webview.start(private_mode=False, storage_path=str(CONFIG_DIR))
+        elif platform.system() == 'Windows':
+            # Windows also supports storage path for Edge WebView2
+            webview.start(private_mode=False, storage_path=str(CONFIG_DIR))
+        else:
+            # Linux and other platforms
+            webview.start(private_mode=False)
 
 if __name__ == '__main__':
     app = ThreadsApp()

@@ -24,7 +24,7 @@ if ($LASTEXITCODE -ne 0) {
 
 # Build the executable
 Write-Host "`nBuilding executable..." -ForegroundColor Yellow
-python -m PyInstaller --onefile --windowed --name "Threads" threads-app.py
+python -m PyInstaller --onefile --windowed --name "Threads" --icon="threads.ico" threads-app.py
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Error: Failed to build executable" -ForegroundColor Red

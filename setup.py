@@ -11,6 +11,7 @@ APP = ['threads-app.py']
 DATA_FILES = []
 OPTIONS = {
     'argv_emulation': False,  # Disable argv_emulation to avoid code signing issues
+    'iconfile': 'threads.icns',  # Add the icon file
     'plist': {
         'LSUIElement': False,
         'CFBundleName': 'Threads',

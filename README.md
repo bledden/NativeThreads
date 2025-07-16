@@ -6,10 +6,12 @@ A native desktop application that displays Threads (https://www.threads.net) in 
 
 - Native window without browser toolbar or navigation buttons
 - Remembers window size and position between launches
+- **Persistent login state** - stays logged in between app launches
+- **Custom application icon** for both Windows and macOS
 - Cross-platform support (Windows and macOS)
 - Windows: Uses Microsoft Edge WebView2 for rendering
 - macOS: Uses native WebKit for rendering
-- Configuration saved in `~/.threads-app/window-config.json`
+- Configuration and session data saved in `~/.threads-app/`
 
 ## Prerequisites
 
@@ -45,7 +47,7 @@ A native desktop application that displays Threads (https://www.threads.net) in 
 
 2. Build the executable:
    ```
-   python -m PyInstaller --onefile --windowed --name "Threads" threads-app.py
+   python -m PyInstaller --onefile --windowed --name "Threads" --icon="threads.ico" threads-app.py
    ```
 
 3. Find your executable at: `dist\Threads.exe`
@@ -66,7 +68,7 @@ A native desktop application that displays Threads (https://www.threads.net) in 
 
 2. Install dependencies:
    ```
-   pip install pywebview py2app
+   pip install pywebview py2app pillow
    ```
 
 3. Build the app:
@@ -110,7 +112,7 @@ python -m PyInstaller --onefile --windowed --name "Threads" threads-app.py
 #### Import errors when running the .exe
 Try building with hidden imports:
 ```
-python -m PyInstaller --onefile --windowed --name "Threads" --hidden-import=webview threads-app.py
+python -m PyInstaller --onefile --windowed --name "Threads" --icon="threads.ico" --hidden-import=webview threads-app.py
 ```
 
 #### WebView2 not available
@@ -150,18 +152,21 @@ pip install --upgrade pywebview py2app
 - `build-threads-app.bat` - Windows batch file build script
 - `build-threads-app-macos.sh` - macOS build script
 - `setup.py` - macOS py2app configuration
+- `threads.ico` - Windows application icon
+- `threads.icns` - macOS application icon
+- `create_icons.py` - Script to generate icon files
 - `dist/Threads.exe` - Windows executable (after build)
 - `dist/Threads.app` - macOS app bundle (after build)
 
 ## Configuration
 
-The app saves window settings in:
-- Windows: `%USERPROFILE%\.threads-app\window-config.json`
-- macOS: `~/.threads-app/window-config.json`
+The app saves data in:
+- Windows: `%USERPROFILE%\.threads-app\`
+- macOS: `~/.threads-app/`
 
 This includes:
-- Window width and height
-- Window position (x, y coordinates)
+- `window-config.json` - Window size and position
+- Browser session data - Cookies and local storage for persistent login
 
 ## License
 
