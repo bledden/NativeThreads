@@ -27,7 +27,7 @@ source venv/bin/activate
 # Install dependencies
 echo -e "\n\033[33mInstalling dependencies...\033[0m"
 pip install --upgrade pip
-pip install pywebview py2app
+pip install pywebview py2app pyobjc-core pyobjc-framework-Cocoa pyobjc-framework-WebKit
 
 if [ $? -ne 0 ]; then
     echo -e "\033[31mError: Failed to install dependencies\033[0m"
