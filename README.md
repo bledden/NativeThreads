@@ -33,11 +33,13 @@ A native desktop application that displays Threads (https://www.threads.net) in 
 1. Open PowerShell as regular user (no admin required)
 2. Navigate to this directory
 3. Run: `.\build-threads-app.ps1`
+4. The script will automatically create a desktop shortcut
 
 #### Option 2: Using Command Prompt
 1. Open Command Prompt
 2. Navigate to this directory
 3. Run: `build-threads-app.bat`
+4. The script will automatically create a desktop shortcut
 
 #### Option 3: Manual Build
 1. Install dependencies:
@@ -58,6 +60,7 @@ A native desktop application that displays Threads (https://www.threads.net) in 
 1. Open Terminal
 2. Navigate to this directory
 3. Run: `./build-threads-app-macos.sh`
+4. The script will automatically install the app to /Applications
 
 #### Option 2: Manual Build
 1. Create virtual environment:
@@ -154,7 +157,7 @@ pip install --upgrade pywebview py2app
 - `setup.py` - macOS py2app configuration
 - `threads.ico` - Windows application icon
 - `threads.icns` - macOS application icon
-- `create_icons.py` - Script to generate icon files
+- `requirements.txt` - Python dependencies
 - `dist/Threads.exe` - Windows executable (after build)
 - `dist/Threads.app` - macOS app bundle (after build)
 

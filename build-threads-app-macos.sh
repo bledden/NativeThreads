@@ -91,13 +91,19 @@ if [ -d "dist/Threads.app" ]; then
     echo -e "\n\033[32mBuild successful!\033[0m"
     echo -e "\033[36mApp location: ./dist/Threads.app\033[0m"
     
-    # Ask if user wants to move to Applications
-    echo -e "\n\033[33mMove Threads.app to Applications folder? (y/n)\033[0m"
-    read -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        cp -r dist/Threads.app /Applications/
+    # Automatically install to Applications folder
+    echo -e "\n\033[33mInstalling to Applications folder...\033[0m"
+    if [ -d "/Applications/Threads.app" ]; then
+        echo -e "\033[33mRemoving existing Threads.app from Applications...\033[0m"
+        rm -rf /Applications/Threads.app
+    fi
+    cp -r dist/Threads.app /Applications/
+    if [ $? -eq 0 ]; then
         echo -e "\033[32mThreads.app has been installed to /Applications\033[0m"
+        echo -e "\033[32mYou can now launch Threads from Launchpad or Applications folder\033[0m"
+    else
+        echo -e "\033[31mWarning: Could not copy to /Applications (may need admin permissions)\033[0m"
+        echo -e "\033[33mYou can manually drag dist/Threads.app to your Applications folder\033[0m"
     fi
     
     # Ask if user wants to run the app

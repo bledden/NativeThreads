@@ -1,0 +1,9 @@
+# Core dependencies
+pywebview
+
+# Build tools
+pyinstaller  # Windows/Linux
+py2app  # macOS only
+
+# Optional dependencies
+pillow  # For icon generation/manipulation

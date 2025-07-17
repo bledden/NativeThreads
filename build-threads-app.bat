@@ -33,8 +33,10 @@ if exist "dist\Threads.exe" (
     echo Build successful!
     echo Executable location: dist\Threads.exe
     echo.
-    echo You can now run the app by double-clicking dist\Threads.exe
-    echo Or create a desktop shortcut by right-clicking on it and selecting "Send to" - "Desktop"
+    echo Creating desktop shortcut...
+    powershell -Command "$desktop = [Environment]::GetFolderPath('Desktop'); $WshShell = New-Object -comObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut(\"$desktop\Threads.lnk\"); $Shortcut.TargetPath = '%CD%\dist\Threads.exe'; $Shortcut.WorkingDirectory = '%CD%\dist'; $Shortcut.IconLocation = '%CD%\dist\Threads.exe'; $Shortcut.Save(); Write-Host 'Desktop shortcut created!' -ForegroundColor Green"
+    echo.
+    echo Installation complete! You can now launch Threads from your desktop.
 ) else (
     echo Error: Executable not found in dist folder
 )

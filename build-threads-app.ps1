@@ -36,14 +36,20 @@ if (Test-Path ".\dist\Threads.exe") {
     Write-Host "`nBuild successful!" -ForegroundColor Green
     Write-Host "Executable location: .\dist\Threads.exe" -ForegroundColor Cyan
     
-    # Ask if user wants to create desktop shortcut
-    $createShortcut = Read-Host "`nCreate desktop shortcut? (y/n)"
-    if ($createShortcut -eq 'y') {
+    # Create desktop shortcut automatically
+    Write-Host "`nCreating desktop shortcut..." -ForegroundColor Yellow
+    try {
+        $desktop = [Environment]::GetFolderPath("Desktop")
         $WshShell = New-Object -comObject WScript.Shell
-        $Shortcut = $WshShell.CreateShortcut("$env:USERPROFILE\Desktop\Threads.lnk")
+        $Shortcut = $WshShell.CreateShortcut("$desktop\Threads.lnk")
         $Shortcut.TargetPath = (Get-Item ".\dist\Threads.exe").FullName
+        $Shortcut.WorkingDirectory = (Get-Item ".\dist").FullName
+        $Shortcut.IconLocation = (Get-Item ".\dist\Threads.exe").FullName
         $Shortcut.Save()
-        Write-Host "Desktop shortcut created!" -ForegroundColor Green
+        Write-Host "Desktop shortcut created at: $desktop\Threads.lnk" -ForegroundColor Green
+    } catch {
+        Write-Host "Warning: Could not create desktop shortcut automatically" -ForegroundColor Yellow
+        Write-Host "You can manually create a shortcut to: $(Get-Item '.\dist\Threads.exe').FullName" -ForegroundColor Yellow
     }
     
     # Ask if user wants to run the app
