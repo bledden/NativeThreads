@@ -1,6 +1,6 @@
 # Threads Native App for Windows and macOS
 
-A native desktop application that displays Threads (https://www.threads.net) in a dedicated window without browser UI. Available for both Windows and macOS.
+A native desktop application that displays Threads (https://www.threads.com) in a dedicated window without browser UI. Available for both Windows and macOS.
 
 This was coded entirely by claude and only audited for security leaks. Just a fun little exercise to address a minor pain point with my current favorite social media site. Have not cleaned-up or optimized a thing personally. Clone at your own risk!
 
