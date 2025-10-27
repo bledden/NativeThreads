@@ -50,7 +50,8 @@ from setuptools import setup
 APP = ['threads-app.py']
 DATA_FILES = []
 OPTIONS = {
-    'argv_emulation': True,
+    'argv_emulation': False,  # Disable argv_emulation to avoid code signing issues
+    'iconfile': 'threads.icns',  # Add the icon file
     'plist': {
         'LSUIElement': False,
         'CFBundleName': 'Threads',
@@ -60,8 +61,11 @@ OPTIONS = {
         'CFBundleShortVersionString': '1.0.0',
         'NSHumanReadableCopyright': 'Threads Native App',
         'NSRequiresAquaSystemAppearance': False,  # Support dark mode
+        'NSHighResolutionCapable': True,
     },
-    'packages': ['webview'],
+    'packages': ['webview', 'objc', 'Foundation', 'AppKit', 'WebKit', 'CoreFoundation'],
+    'includes': ['WebKit', 'Foundation', 'AppKit', 'objc', 'objc._objc'],
+    'arch': 'arm64',  # Specify architecture explicitly
 }
 
 setup(

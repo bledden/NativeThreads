@@ -21,7 +21,7 @@ if errorlevel 1 (
 
 echo.
 echo Building executable...
-python -m PyInstaller --onefile --windowed --name "Threads" threads-app.py
+python -m PyInstaller --onefile --windowed --name "Threads" --icon="threads.ico" threads-app.py
 if errorlevel 1 (
     echo Error: Failed to build executable
     pause

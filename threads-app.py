@@ -1,6 +1,4 @@
-import sys
 import json
-import os
 from pathlib import Path
 import webview
 import platform
@@ -26,9 +24,24 @@ class ThreadsApp:
         if CONFIG_FILE.exists():
             try:
                 with open(CONFIG_FILE, 'r') as f:
-                    return json.load(f)
-            except:
-                pass
+                    config = json.load(f)
+                    # Validate that config contains expected keys with appropriate types
+                    if not isinstance(config, dict):
+                        return default_config
+                    # Ensure width and height are positive integers
+                    if 'width' in config and isinstance(config['width'], int) and config['width'] > 0:
+                        default_config['width'] = config['width']
+                    if 'height' in config and isinstance(config['height'], int) and config['height'] > 0:
+                        default_config['height'] = config['height']
+                    # x and y can be None or integers
+                    if 'x' in config and (config['x'] is None or isinstance(config['x'], int)):
+                        default_config['x'] = config['x']
+                    if 'y' in config and (config['y'] is None or isinstance(config['y'], int)):
+                        default_config['y'] = config['y']
+                    return default_config
+            except (json.JSONDecodeError, IOError, OSError) as e:
+                # Log error but continue with defaults - don't crash the app
+                print(f"Warning: Could not load config file: {e}")
                 
         return default_config
     
@@ -46,12 +59,15 @@ class ThreadsApp:
                 "y": y
             }
             
-            # Ensure config directory exists
-            CONFIG_DIR.mkdir(exist_ok=True)
+            # Ensure config directory exists with proper permissions
+            CONFIG_DIR.mkdir(mode=0o755, exist_ok=True)
             
-            # Save configuration
-            with open(CONFIG_FILE, 'w') as f:
-                json.dump(config, f)
+            # Save configuration with formatting for readability
+            try:
+                with open(CONFIG_FILE, 'w') as f:
+                    json.dump(config, f, indent=2)
+            except (IOError, OSError) as e:
+                print(f"Warning: Could not save config file: {e}")
     
     def on_closing(self):
         """Called when window is closing"""
